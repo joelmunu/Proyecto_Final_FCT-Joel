@@ -41,7 +41,7 @@ public class FacturaController {
         return facturaService.deleteFactura(id);
     }
 
-    @PostMapping("{id}/usuario/{dni}")
+    @PostMapping("{id}/cliente/{dni}")
     public ResponseEntity<String> addUsuarioToFactura(@PathVariable Long id, @PathVariable String dni) {
         return facturaService.addUsuarioToFactura(id, dni);
     }

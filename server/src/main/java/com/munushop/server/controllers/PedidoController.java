@@ -41,7 +41,7 @@ public class PedidoController {
         return pedidoService.deletePedido(id);
     }
 
-    @PostMapping("{id}/usuario/{dni}")
+    @PostMapping("{id}/cliente/{dni}")
     public ResponseEntity<String> addUsuarioToPedido(@PathVariable Long id, @PathVariable String dni) {
         return pedidoService.addUsuarioToPedido(id, dni);
     }
