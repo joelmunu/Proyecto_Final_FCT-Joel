@@ -43,6 +43,10 @@ public class Usuario implements UserDetails {
     @JsonIgnore
     private List<Factura> facturas;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Pedido> pedidos;
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

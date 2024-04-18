@@ -30,4 +30,9 @@ public class Producto {
     @JsonIgnore
     @JoinColumn(name = "factura_id")
     private Factura factura;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
 }
