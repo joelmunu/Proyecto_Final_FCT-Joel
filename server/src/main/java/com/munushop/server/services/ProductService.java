@@ -23,7 +23,7 @@ public class ProductService {
         return productRepository.findByNombre(nombre);
     }
 
-    public ResponseEntity<String> createProduct (Producto producto) {
+    public ResponseEntity<String> createProduct(Producto producto) {
         productRepository.save(producto);
         return ResponseEntity.status(HttpStatus.CREATED).body("Se ha creado el producto");
     }
@@ -31,23 +31,15 @@ public class ProductService {
     public ResponseEntity<String> updateProduct(Long id, Producto updatedProduct) {
         try {
             Producto producto = productRepository.findById(id).orElse(null);
-    
+
             if (producto != null) {
                 if (!(updatedProduct.getNombre().isEmpty() || updatedProduct.getNombre() == null)) {
                     producto.setNombre(updatedProduct.getNombre());
                 }
-                if (updatedProduct.getPrecio() != null) {
-                    producto.setPrecio(updatedProduct.getPrecio());
-                }
-                if (!(updatedProduct.getDescripcion().isEmpty() || updatedProduct.getDescripcion() == null)) {
-                    producto.setDescripcion(updatedProduct.getDescripcion());
-                }
-                if (updatedProduct.getStock() != null) {
-                    producto.setStock(updatedProduct.getStock());
-                }
-    
+                producto.setPrecio(updatedProduct.getPrecio());
+
                 productRepository.save(producto);
-    
+
                 return ResponseEntity.ok("Producto actualizado correctamente.");
             } else {
                 return ResponseEntity.notFound().build();

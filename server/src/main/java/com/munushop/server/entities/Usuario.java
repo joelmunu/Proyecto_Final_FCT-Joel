@@ -7,9 +7,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -22,8 +26,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Usuario", uniqueConstraints = {@UniqueConstraint(columnNames = {"dni", "username"})})
-public class Usuario implements UserDetails{
+@Table(name = "Usuario", uniqueConstraints = { @UniqueConstraint(columnNames = { "dni", "username" }) })
+public class Usuario implements UserDetails {
     @Id
     String dni;
     @Column(nullable = false)
@@ -34,6 +38,10 @@ public class Usuario implements UserDetails{
     String telefono;
     String contrasena;
     Boolean isAdmin;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Factura> facturas;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -48,17 +56,17 @@ public class Usuario implements UserDetails{
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
-    }   
+    }
 
     @Override
     public boolean isEnabled() {
-        return true;   
+        return true;
     }
 
-	@Override
-	public String getUsername() {
-		return this.username;
-	}
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -67,6 +75,6 @@ public class Usuario implements UserDetails{
 
     @Override
     public String getPassword() {
-		return this.contrasena;
+        return this.contrasena;
     }
 }

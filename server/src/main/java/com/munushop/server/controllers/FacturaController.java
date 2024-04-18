@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,13 +36,23 @@ public class FacturaController {
         return facturaService.createFactura(factura);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateFactura(@PathVariable Long id, @RequestBody Factura factura) {
-        return facturaService.updateFactura(id, factura);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteFactura(@PathVariable Long id) {
         return facturaService.deleteFactura(id);
+    }
+
+    @PostMapping("{id}/usuario/{dni}")
+    public ResponseEntity<String> addUsuarioToFactura(@PathVariable Long id, @PathVariable String dni) {
+        return facturaService.addUsuarioToFactura(id, dni);
+    }
+
+    @PostMapping("{id}/producto/{productId}")
+    public ResponseEntity<String> addProductoToFactura(@PathVariable Long id, @PathVariable Long productId) {
+        return facturaService.addProductoToFactura(id, productId);
+    }
+
+    @GetMapping("/cliente/{dni}")
+    public ResponseEntity<String> getFacturasFromCliente(@PathVariable String dni) {
+        return facturaService.getFacturasFromCliente(dni);
     }
 }
