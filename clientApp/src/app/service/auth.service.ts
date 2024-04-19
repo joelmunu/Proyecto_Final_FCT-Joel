@@ -9,7 +9,11 @@ export class AuthService {
   constructor() { }
 
   setToken(token: any) {
-    this.token = token;
+    if (token && token.token) {
+      this.token = token.token;
+    } else {
+      console.error("Token inválido:", token);
+    }
   }
 
   getToken() {
